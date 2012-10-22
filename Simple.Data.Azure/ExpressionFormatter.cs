@@ -130,7 +130,7 @@ namespace Simple.Data.Azure
             if (!ReferenceEquals(objectReference, null))
                 return _simpleReferenceFormatter.FormatColumnClause(objectReference);
 
-            return value is string ? string.Format("'{0}'", value) : value is DateTime ? ((DateTime)value).ToIso8601String() : value.ToString();
+            return value is string ? string.Format("'{0}'", value) : value is DateTime ? ((DateTime)value).ToIso8601String() : value is Boolean ? value.ToString().ToLowerInvariant() : value.ToString();
         }
     }
 
@@ -151,7 +151,7 @@ namespace Simple.Data.Azure
         {
             var reference = value as SimpleReference;
             if (reference != null) return FormatColumnClause(reference);
-            return value is string ? string.Format("'{0}'", value) : value is DateTime ? ((DateTime)value).ToIso8601String() : value.ToString();
+            return value is string ? string.Format("'{0}'", value) : value is DateTime ? ((DateTime)value).ToIso8601String() : value is Boolean ? value.ToString().ToLowerInvariant() : value.ToString();
         }
 
         private string TryFormatAsMathReference(MathReference mathReference)
